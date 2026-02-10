@@ -8,15 +8,54 @@
 
 # Election Results Management System
 
-This is a specialized application built on the [Yii 2 Framework](https://www.yiiframework.com/) for managing and visualizing election results. The system is designed to provide clear insights into polling unit data and local government area (LGA) summed results.
+This is a specialized application built on the [Yii 2 Framework](https://www.yiiframework.com/) for managing and visualizing election results. The system provides insights into polling unit data and local government area (LGA) summed results.
 
 ## Features
 
 - **Polling Unit Results**: View detailed results for individual polling units.
 - **LGA Summed Results**: Access aggregated voting data for all polling units within a specific Local Government Area.
-- **Add New Results**: A secure and straightforward interface for entering new polling unit results for all parties.
+- **Add New Results**: A straightforward interface for entering new polling unit results for all parties.
 - **Green & White Theme**: A clean, professional UI reflecting a national identity.
 - **Login-Free Access**: The application is configured for open access to all result data.
+
+## Local Hosting with ngrok
+
+To share your local development server with the world using **ngrok**, follow these steps:
+
+### 1. Start the Local Server
+Start the built-in Yii development server on port 8080:
+
+```bash
+php yii serve --port=8080
+```
+
+### 2. Launch ngrok
+In a new terminal window, start ngrok to tunnel your local server:
+
+```bash
+ngrok http 8080
+```
+
+### 3. Access the Site
+ngrok will provide a public URL (e.g., `https://random-id.ngrok-free.app`). You can use this URL to access the application from any device with internet access.
+
+## Database Setup
+
+### 1. Configuration
+Edit the file `config/db.php` with your local database credentials:
+
+```php
+return [
+    'class' => 'yii\db\Connection',
+    'dsn' => 'mysql:host=localhost;dbname=bincomphptest',
+    'username' => 'root',
+    'password' => '',
+    'charset' => 'utf8',
+];
+```
+
+### 2. Schema
+The system uses the `bincomphptest` database. You can find the SQL schema and initial data in `config/bincom_test.sql`.
 
 ## Directory Structure
 
@@ -29,47 +68,6 @@ models/             contains model classes (AnnouncedPuResults, PollingUnit, etc
 views/              contains view files for the Web application
 web/                contains the entry script and Web resources (site.css)
 ```
-
-## Setup Instructions
-
-### 1. Database Configuration
-Edit the file `config/db.php` with your database credentials:
-
-```php
-return [
-    'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=127.0.0.1;dbname=bincomphptest',
-    'username' => 'root',
-    'password' => '',
-    'charset' => 'utf8',
-];
-```
-
-The system uses the `bincomphptest` database. You can find the schema in `config/bincom_test.sql`.
-
-### 2. Local Server
-You can start the built-in Yii development server using:
-
-```bash
-php yii serve --port=8080
-```
-
-Access the application at `http://localhost:8080`.
-
-### 3. Deployment with Docker (Render)
-This project includes a `Dockerfile` and `apache.conf` for easy deployment on platforms like Render.
-
-**Environment Variables:**
-- `DB_DSN`: The database DSN (e.g., `mysql:host=your-db-host;dbname=your-db-name`)
-- `DB_USERNAME`: Database username
-- `DB_PASSWORD`: Database password
-
-## Key Components
-
-- **ElectionController**: Handles the logic for displaying polling unit results, LGA summaries, and the creation of new results.
-- **SiteController**: Manages the homepage and generic site actions.
-- **Models**: Includes `PollingUnit`, `AnnouncedPuResults`, `Lga`, `Ward`, and `Party` to interact with the election database.
-- **Theme**: Custom green and white styling is defined in `web/css/site.css`.
 
 ---
 *Built with Yii 2 Framework*
